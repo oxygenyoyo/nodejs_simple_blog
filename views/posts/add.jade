@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	.col-md-12
+		h2 Add a new post
+	.row
+		.col-md-12
+			form(method="post" action="/posts")
+				.form-group
+					labe(for="title") Title:
+					input(type="text",name="title").form-control
+				.form-group
+					lavel(for="body") Body:
+					textarea(name="body").form-control
+				button.btn.btn-primary Add a new post

@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+	.col-md-12
+		.row
+			.col-md-6
+				h2 Posts
+			.col-md-6.text-right
+				a(href="posts/add").btn.btn-primary Add a new post
+		.row
+			.col-md-12
+				table.table.table-striped.table-hover
+					thead
+						td Title
+						td Body
+						td Action
+					tbody
+						each post in posts
+							tr
+								td=post.title
+								td=post.body
+								td
+									a(href="posts/edit/#{post._id}").btn.btn-default Edit 
+									| &nbsp;
+									a(href="posts/delete/#{post._id}").btn.btn-danger Delete

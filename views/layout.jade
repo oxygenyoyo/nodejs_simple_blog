@@ -1,8 +1,15 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='icon', type='image/x-icon', href='/images/favicon.ico')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+	title= title
+	link(rel='icon', type='image/x-icon', href='/images/favicon.ico')
+	link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+	link(rel='stylesheet', href='/stylesheets/bootstrap-theme.css')
+	link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		.container
+			.row
+				block content
+
+	script(src='/javascripts/jquery.js')
+	script(src='/javascripts/bootstrap.min.js')

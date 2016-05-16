@@ -6,20 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/blog');
-var PostSchema = new mongoose.Schema({
-  title : String,
-  body : String,
-  updated_at : { type : Date, default: Date.now }
-});
 
-var Post = mongoose.model('Post', PostSchema);
-
-var post = new Post({ title : 'this is post 1', body : 'this is content 1'});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var posts = require('./routes/posts');
 
 var app = express();
 
@@ -37,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/posts', posts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
