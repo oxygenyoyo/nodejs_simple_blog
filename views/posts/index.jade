@@ -1,25 +1,64 @@
 extends ../layout
 
 block content
-	.col-md-12
-		.row
-			.col-md-6
-				h2 Posts
-			.col-md-6.text-right
-				a(href="posts/add").btn.btn-primary Add a new post
-		.row
-			.col-md-12
-				table.table.table-striped.table-hover
-					thead
-						td Title
-						td Body
-						td Action
-					tbody
-						each post in posts
-							tr
-								td=post.title
-								td=post.body
-								td
-									a(href="posts/edit/#{post._id}").btn.btn-default Edit 
-									| &nbsp;
-									a(href="posts/delete/#{post._id}").btn.btn-danger Delete
+  .col-md-12
+    .row
+      .col-md-6
+        h2 Posts
+      .col-md-6.text-right
+        a(href="/posts/add").btn.btn-primary Add a new post
+    .row
+      .col-md-12
+        table.table.table-striped.table-hover
+          thead
+            td Title
+            td Body
+            td Action
+          tbody
+            each post in posts
+              tr
+                td=post.title
+                td=post.body
+                td
+                  a(href="/posts/edit/#{post._id}").btn.btn-default Edit 
+                  | &nbsp;
+                  a(href="/posts/api/delete/#{post._id}",data-url="").del.btn.btn-danger Delete
+
+  // set up the modal to start hidden and fade in and out
+  #myModal.modal.fade
+    .modal-dialog
+      .modal-content
+        // dialog body
+        .modal-body
+          button.close(type='button', data-dismiss='modal') ×
+          |         Hello world!
+        // dialog buttons
+        .modal-footer
+          button.btn.btn-primary(type='button') OK
+
+block js
+  script(src="/javascripts/bootbox.min.js")
+  script(type="text/javascript").
+    (function($) {
+      $('.del').on('click', function(e) {
+        e.preventDefault();
+        var elementClicked = $(this);
+        console.log(elementClicked.attr('href'));
+        bootbox.confirm("Are you sure?", function(result) {
+          //- Example.show("Confirm result: "+result);
+          if(result) {
+            $.ajax({
+              url : elementClicked.attr('href'),
+              method : 'DELETE',
+              success : function(res) {
+                console.log(res);
+                elementClicked.parents('tr').remove();
+              }
+            })
+          }
+            
+        }); 
+      });
+    }(jQuery));
+    
+    

@@ -75,9 +75,10 @@ router.post('/update/:id', function(req, res, next) {
 	})
 })
 
-router.get('/delete/:id', function(req, res, next) {
-	Post.findOneAndRemove({'_id' : req.params.id}, function (err,offer){
-    	res.redirect('/posts');
+router.delete('/api/delete/:id', function(req, res, next) {
+
+	Post.findOneAndRemove({'_id' : req.params.id}, function (err,doc){
+    	res.json({'success': true, 'doc' : doc});
     });
 });
 
